@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load django_bootstrap_breadcrumbs %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    {% breadcrumb 'Infoscreen' 'infoscreen_index' %}
+    {% breadcrumb 'New content' 'infoscreen_new_content' %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <h1>
+        {% blocktrans trimmed %}
+            Submit new infoscreen content
+        {% endblocktrans %}
+    </h1>
+
+    <form method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class="form-group">
+            <p class="form-text">
+                {% blocktrans trimmed %}
+                    Here you can upload multimedia content to be displayed on
+                    the infoscreens.
+                {% endblocktrans %}
+            </p>
+            <img src="/static/media/full-hd-icon.svg" class="img-fluid icon"
+                 alt="
+                {% blocktrans trimmed %}
+                    Content will be displayed on a screen with 16/9 aspect
+                    ratio in landscape format.'
+                {% endblocktrans %}
+            ">
+            <p class="form-text">
+                {% blocktrans trimmed %}
+                    You may upload an <b>image</b> or <b>video</b> file with
+                    the dimensions <b>1920x1080</b> in <b>16/9 aspect ratio</b>
+                    and in <b>landscape</b> orientation.
+                {% endblocktrans %}
+            </p>
+            {{ form.file|as_crispy_field }}
+        </div>
+        <hr>
+        {{ form.title|as_crispy_field }}
+        <p class="form-text">
+            {% blocktrans trimmed %}
+                Give the file a descriptive title. This will be used for
+                indexing.
+            {% endblocktrans %}
+        </p>
+        <hr>
+        {{ form.group|as_crispy_field }}
+        <p class="form-text">
+            {% blocktrans trimmed %}
+                Next, you have to select a group to which the content
+                belongs to. This is used to ensure a fair distribution of
+                display time among all groups.
+            {% endblocktrans %}
+        </p>
+        <hr>
+        <div class="form-group row">
+            <div class="col">
+                {{ form.valid_from|as_crispy_field }}
+            </div>
+            <div class="col">
+                {{ form.valid_until|as_crispy_field }}
+            </div>
+        </div>
+        <p class="form-text">
+            {% blocktrans trimmed %}
+                You can specify a validity period. If you leave it empty, you
+                indicate that this content can stay for an undefined period of
+                time. The content will be displayed in the specified time span.
+                This value can always be updated in the future - leaving
+                you the option to reactivate content.
+            {% endblocktrans %}
+        </p>
+        <hr>
+        {{ form.screens|as_crispy_field }}
+        <p class="form-text">
+            {% blocktrans trimmed %}
+                Lastly, you have to select on which infoscreen(s) the
+                content should be displayed.
+            {% endblocktrans %}
+            {% if not is_mobile %}
+                {% blocktrans trimmed %}
+                    Hold down “Control”, or “Command” on a Mac, to select more
+                    than one.
+                {% endblocktrans %}
+            {% endif %}
+        </p>
+        <button type="submit" class="btn btn-primary">
+            {% trans 'Submit content' %}
+        </button>
+    </form>
+{% endblock content %}

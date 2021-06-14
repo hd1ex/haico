@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load django_tables2 %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    {% breadcrumb 'Infoscreen' 'infoscreen_index' %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+    {% if not show_all %}
+        <h1>{% trans 'Currently displayed infoscreen content' %}</h1>
+    {% else %}
+        <h1>{% trans 'All infoscreen content' %}</h1>
+    {% endif %}
+    <a href="{% url 'infoscreen_new_content' %}" class="btn btn-primary m-1">
+        {% trans 'Add new infoscreen content' %}
+    </a>
+    <a href="{% export_url 'json' %}" class="btn btn-secondary m-1">
+        {% trans 'Export with current filter as json' %}
+    </a>
+    {% if show_all %}
+        <a href="{% url 'infoscreen_index' %}"
+           class="btn btn-secondary m-1">
+            {% trans 'Only show current content' %}
+        </a>
+    {% else %}
+        <a href="{% url 'infoscreen_index' %}?all=true"
+           class="btn btn-secondary m-1">
+            {% trans 'Show all content' %}
+        </a>
+    {% endif %}
+    {% render_table table %}
+{% endblock %}

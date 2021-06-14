@@ -1,0 +1,2 @@
+User {{ user }} for group {{ group }} has uploaded new content: {{ content.file_url }}
+Click here to view the details: {{ content.get_detail_url() }}

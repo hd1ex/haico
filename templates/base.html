@@ -1,0 +1,63 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+{% load django_bootstrap_breadcrumbs %}
+
+<head>
+    <title>HAICO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+          media="(prefers-color-scheme: light)"
+          href=" {% static 'css/bootstrap-light.css' %}">
+    <link rel="stylesheet" type="text/css"
+          media="(prefers-color-scheme: dark)"
+          href="{% static 'css/bootstrap-dark.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/sticky-footer.css' %}">
+</head>
+
+<body>
+{% block breadcrumbs %}
+    {% clear_breadcrumbs %}
+    {% breadcrumb 'Home' '/' %}
+{% endblock %}
+
+<nav class="navbar bg-primary" aria-label="breadcrumb">
+    <div class="container-fluid">
+        {% render_breadcrumbs %}
+    </div>
+</nav>
+
+<div id="wrap" class="container pb-2">
+    {% if messages %}
+        {% for message in messages %}
+            <div{% if message.tags %}
+                class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer class="footer bg-primary text-white" style="overflow-y: hidden">
+    <p class="ml-3 container-fluid"
+       style="overflow-y: hidden;  white-space: nowrap;">
+        {% blocktrans trimmed %}
+            This project is licensed under the
+            <a href="https://www.gnu.org/licenses/agpl-3.0.html">
+                GNU Affero General Public License</a>.
+            Contribute or file bug reports at the
+            <a href="https://github.com/hd1ex/haico">
+                projects repository</a>.
+        {% endblocktrans %}
+    </p>
+</footer>
+</body>
+</html>

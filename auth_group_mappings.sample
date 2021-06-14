@@ -1,0 +1,5 @@
+# This file contains group mappings from oauth groups to the desired django
+# groups. This is done by specifying a regex. The first regex group should
+# surround the resulting group. If no group is specified, the source name will
+# be taken as is.
+^(.*)-members$

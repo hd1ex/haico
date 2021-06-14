@@ -1,0 +1,227 @@
+# German translation for the HAICO project.
+# Copyright (C) 2021 Alexander Sommer
+# This file is distributed under the same license as the PACKAGE package.
+# Alexander Sommer <dev@alexandersommer.eu>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-15 13:23+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "File"
+msgstr "Datei"
+
+msgid "File title"
+msgstr "Dateititel"
+
+msgid "Associated group"
+msgstr "Zugehörige Gruppe"
+
+msgid "Valid from"
+msgstr "Gültig ab"
+
+msgid "Valid until"
+msgstr "Gültig bis"
+
+msgid "Targeted infoscreens"
+msgstr "Zielbildschirme"
+
+msgid "Choose a group"
+msgstr "Wähle eine Gruppe"
+
+#, python-format
+msgid ""
+"Email-transport failed. Please email %(rec)s manually and mention your "
+"content id (%(id)s). Sorry for the inconvenience!"
+msgstr ""
+"Das Versenden der E-Mail ist fehlgeschlagen. Bitte sende eigenständig eine E-"
+"Mail an %(rec)s und erwähne deine Inhalts-Id (%(id)s). Enschuldigung für die "
+"Unanehmlichkeiten!"
+
+msgctxt "infoscreen content singular"
+msgid "infoscreen content"
+msgstr "Infoscreen-Inhalt"
+
+msgctxt "infoscreen content plural"
+msgid "infoscreen content"
+msgstr "Infoscreen-Inhalte"
+
+msgid "file url"
+msgstr "Datei-URL"
+
+msgid "An url to the hosted file."
+msgstr "Eine URL zur abgelegten Datei."
+
+msgid "A title for the content."
+msgstr "Ein Titel für den Inhalt."
+
+msgid "title"
+msgstr "Dateititel"
+
+msgid "group"
+msgstr "Gruppe"
+
+msgid "The name of the associated group."
+msgstr "Der Name der verbundenen Gruppe."
+
+msgid ""
+"The date when this content should start to be shown. Empty means that it "
+"should be shown from now on."
+msgstr ""
+"Das Datum ab wann dieser Inhalt angezeigt werden soll. Leer bedeutet, dass "
+"dieser ab sofort angezeigt werden soll."
+
+msgid "valid from"
+msgstr "Gültig ab"
+
+msgid "The date when this content expires. Empty means it does not expire."
+msgstr ""
+"Das Datum wann dieser Inhalt ausläuft. Leer bedeutet, dass dieser nicht "
+"ausläuft."
+
+msgid "valid until"
+msgstr "Gültig bis"
+
+msgid "The screens this content should be displayed on."
+msgstr "Die Bildschirme, an denen der Inhalt angezeigt werden soll."
+
+msgid "screens"
+msgstr "Bildschirme"
+
+msgid "The submitter of the content."
+msgstr "Der/Die Einreichende des Inhalts."
+
+msgid "submitter"
+msgstr "Einreichende"
+
+msgid "The time of submission."
+msgstr "Der Einreichungszeitpunkt."
+
+msgid "submission time"
+msgstr "Einreichungszeitpunkt"
+
+msgid "Currently displayed infoscreen content"
+msgstr "Aktuell angezeigter Infoscreen-Inhalt"
+
+msgid "All infoscreen content"
+msgstr "Gesamter Infoscreen-Inhalt"
+
+msgid "Add new infoscreen content"
+msgstr "Füge neuen Infoscreen-Inhalt hinzu"
+
+msgid "Export with current filter as json"
+msgstr "Exportiere mit dem aktuellen Filter als JSON"
+
+msgid "Only show current content"
+msgstr "Zeige nur aktuelle Inhalte"
+
+msgid "Show all content"
+msgstr "Zeige alle Inhalte"
+
+msgid "Submit new infoscreen content"
+msgstr "Reiche neuen Infoscreen-Inhalt ein"
+
+msgid ""
+"Here you can upload multimedia content to be displayed on the infoscreens."
+msgstr ""
+"Hier kannst du neuen Multimedia-Inhalt hochladen, welcher auf den "
+"Infoscreens angezeigt werden soll."
+
+msgid ""
+"Content will be displayed on a screen with 16/9 aspect ratio in landscape "
+"format.'"
+msgstr "Der Inhalt wird auf einem Bildschirm im 16/9-Querformat angezeigt."
+
+msgid ""
+"You may upload an <b>image</b> or <b>video</b> file with the dimensions "
+"<b>1920x1080</b> in <b>16/9 aspect ratio</b> and in <b>landscape</b> "
+"orientation."
+msgstr ""
+"Du kannst eine <b>Bild</b>- oder <b>Video</b>-Datei mit den Dimensionen "
+"<b>1920x1080</b> im <b>Seitenverhältnis 16/9</b> und <b>Querformat</b> "
+"hochladen."
+
+msgid "Give the file a descriptive title. This will be used for indexing."
+msgstr ""
+"Gib der Datei einen aussagekräftigen Titel. Dieser wird für die Indizierung "
+"verwendet."
+
+msgid ""
+"Next, you have to select a group to which the content belongs to. This is "
+"used to ensure a fair distribution of display time among all groups."
+msgstr ""
+"Als nächstes musst du eine Gruppe wählen, zu welcher der Inhalt gehört. "
+"Diese wird benutzt, um eine faire Verteilung von Anzeigezeit zwischen allen "
+"Gruppen zu garantieren."
+
+msgid ""
+"You can specify a validity period. If you leave it empty, you indicate that "
+"this content can stay for an undefined period of time. The content will be "
+"displayed in the specified time span. This value can always be updated in "
+"the future - leaving you the option to reactivate content."
+msgstr ""
+"Du kannst eine Zeitspanne für die Gültigkeit setzen. Wenn du diese leer "
+"lässt, gibst du an, dass dieser Inhalt für eine unbestimmte Zeit bleiben "
+"kann. Der Inhalt wird innerhalb der spezifizierten Zeitspanne angezeigt. "
+"Dieser Wert kann in der Zukunft immer aktualisiert werden - dies lässt dir "
+"die Option, Inhalt zu reaktivieren."
+
+msgid ""
+"Lastly, you have to select on which infoscreen(s) the content should be "
+"displayed."
+msgstr ""
+"Als letztes musst du den/die Bildschirm(e) wählen, an denen der Inhalt "
+"angezeigt werden soll."
+
+msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
+msgstr ""
+"Halte die Strg-Taste (⌘ für Mac) während des Klickens gedrückt, um mehrere "
+"Einträge auszuwählen."
+
+msgid "Submit content"
+msgstr "Inhalt einreichen"
+
+#, python-format
+msgid ""
+"Your media file has the dimensions %(width)sx%(height)s. They need to be "
+"%(target_width)sx%(target_height)s."
+msgstr ""
+"Deine Multimedia-Datei hat die Dimensionen %(width)sx%(height)s. Diese "
+"müssen aber %(target_width)sx%(target_height)s sein."
+
+msgid "Unable to parse file. Is this a multimedia file?"
+msgstr ""
+"Die Datei kann nicht verarbeitet werden. Ist dies eine Multimedia-Datei?"
+
+msgid "Unsupported file type."
+msgstr "Nicht-unterstützter Dateityp."
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid ""
+"This project is licensed under the <a href=\"https://www.gnu.org/licenses/"
+"agpl-3.0.html\"> GNU Affero General Public License</a>. Contribute or "
+"file bug reports at the <a href=\"https://github.com/hd1ex/haico\"> "
+"projects repository</a>."
+msgstr ""
+"Dieses Projekt ist unter der <a href=\"https://www.gnu.org/licenses/"
+"agpl-3.0.html\"> GNU Affero General Public License</a> lizenziert. Auf "
+"der <a href=\"https://github.com/hd1ex/haico\"> Projektseite</a> kannst "
+"du beitragen oder Fehler melden."
+
+msgid "New content"
+msgstr "Neuer Inhalt"

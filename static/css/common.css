@@ -1,0 +1,26 @@
+@media (prefers-color-scheme: light) {
+    .icon {
+
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .icon {
+        filter: invert(100%)
+    }
+}
+
+.select-checkbox {
+    height: auto;
+}
+
+.select-checkbox option::before {
+    content: "\2610";
+    width: 1.3em;
+    text-align: center;
+    display: inline-block;
+}
+
+.select-checkbox option:checked::before {
+    content: "\2611";
+}

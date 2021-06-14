@@ -1,0 +1,9 @@
+auth_group_mappings
+venv/
+*.mo
+databases/
+infoscreen-content/
+**/__pycache__/**
+secret_key.txt
+log/
+.env
