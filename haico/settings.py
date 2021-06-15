@@ -30,14 +30,14 @@ django.utils.encoding.smart_text = smart_str
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Host specific
 
 # Configure this
-HOST_DOMAIN = '127.0.0.1'
-BASE_URL = f'http://{HOST_DOMAIN}:8000'
-ALLOWED_HOSTS = [HOST_DOMAIN]
+HOST_DOMAIN = 'info.hadiko.de'
+BASE_URL = f'https://{HOST_DOMAIN}'
+ALLOWED_HOSTS = [HOST_DOMAIN, '127.0.0.1']
 
 # Application definition
 
@@ -218,7 +218,7 @@ LOGGING = {
 
 # E-Mail
 
-STAFF_EMAIL_ADDRESSES = ['staff@example.com']  # <- Configure this
+STAFF_EMAIL_ADDRESSES = ['infoscreen@hadiko.de']  # <- Configure this
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
@@ -227,10 +227,9 @@ else:
     # Configure the following stuff
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
-    EMAIL_HOST = 'smtp.example.com'
+    EMAIL_HOST = 'mail.hadiko.de'
     EMAIL_PORT = 587
-    EMAIL_HOST_USER = 'email-sender@example.com'
-    EMAIL_HOST_PASSWORD = 'S7tr0ngP455w0rd'
+    DEFAULT_FROM_EMAIL = 'infoscreen@hadiko.de'
 
 # Auth
 
@@ -244,9 +243,9 @@ AUTHLIB_OAUTH_CLIENTS = {
 LOGIN_URL = reverse_lazy('login')
 
 # Configure this
-ADMIN_GROUP = 'admins'
-OAUTH_USERNAME_CLAIM = 'username'
-OAUTH_GROUP_CLAIM = 'groups'
-OAUTH_EMAIL_CLAIM = 'email'
-OPENID_CONF_URL = 'https://sso.example.com/.well-known/openid-configuration'
-OAUTH_CLIENT_SCOPES = 'openid username groups email'
+ADMIN_GROUP = 'ak-infoscreen'
+OAUTH_USERNAME_CLAIM = 'hadiko_username'
+OAUTH_GROUP_CLAIM = 'hadiko_groups'
+OAUTH_EMAIL_CLAIM = 'hadiko_email'
+OPENID_CONF_URL = 'https://sso.hadiko.de/auth/realms/hadiko/.well-known/openid-configuration'
+OAUTH_CLIENT_SCOPES = 'openid hadiko-email hadiko-username hadiko-groups'

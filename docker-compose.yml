@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.6'
 services:
   web:
     build: nginx
@@ -8,8 +8,7 @@ services:
       - infoscreen-content:/srv/haico/infoscreen-content/
       - nginx:/etc/nginx/
     ports:
-      - 80:80
-      - 443:443
+      - "127.0.0.1:8080:80"
     restart: always
   haico:
     build:
