@@ -70,8 +70,8 @@ class InfoscreenContent(models.Model):
     def query_currently_displayed():
         now = datetime.now()
         return InfoscreenContent.objects.filter(
-            Q(valid_from__gte=now) | Q(valid_from=None)).filter(
-            Q(valid_until__lte=now) | Q(valid_until=None))
+            Q(valid_from__lte=now) | Q(valid_from=None)).filter(
+            Q(valid_until__gte=now) | Q(valid_until=None))
 
     @staticmethod
     def query_all():
