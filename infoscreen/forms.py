@@ -93,6 +93,13 @@ class NewInfoscreenContentForm(forms.Form):
         content.screens.set(screens)
         content.save()
 
+        messages.add_message(
+            request, messages.SUCCESS,
+            gettext(
+                'File "%(title)s" uploaded successfully.'
+            ) % {'title': title},
+            'alert alert-success')
+
         cur_language = translation.get_language()
         try:
             translation.activate('en')
