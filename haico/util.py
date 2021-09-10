@@ -43,4 +43,6 @@ def send_email(subject: str, message: str, to: list[str],
 
 def send_email_to_staff(subject: str, message: str,
                         reply_to: Optional[list[str]]):
-    send_email(subject, message, settings.STAFF_EMAIL_ADDRESSES, reply_to)
+    staff_email = settings.STAFF_EMAIL_ADDRESSES
+    reply_to = staff_email if reply_to is None else reply_to + staff_email
+    send_email(subject, message, staff_email, reply_to)
