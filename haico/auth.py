@@ -33,6 +33,8 @@ def update_user(auth: dict) -> User:
     user, _ = User.objects.get_or_create(username=username)
     user.email = email
 
+    groups.append('allgemein')
+
     user.groups.clear()
     for name in groups:
         group, _ = Group.objects.get_or_create(name=name)
