@@ -18,9 +18,10 @@ class ContentTable(tables.Table):
     title = TitleFileLinkColumn()
     valid_from = tables.DateColumn(visible=False)
     valid_until = tables.DateColumn(visible=False)
+    file_url = tables.URLColumn(visible=False)
 
     class Meta:
         model = InfoscreenContent
-        fields = ('title', 'group', 'screens', 'submission_time')
+        fields = ('title', 'group', 'screens', 'submission_time', 'file_url')
         attrs = {'class': 'table table-striped'}
         order_by = '-submission_time'
