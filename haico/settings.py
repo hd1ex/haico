@@ -18,6 +18,11 @@ from django.urls import reverse_lazy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Fix bootstrap-breadcrumbs not working with Django 4
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -46,8 +51,11 @@ INSTALLED_APPS = [
     'infoscreen.apps.InfoscreenConfig',
     'django_bootstrap_breadcrumbs',
     'crispy_forms',
+    'crispy_bootstrap4',
     'django_tables2',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

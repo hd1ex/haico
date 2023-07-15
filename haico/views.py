@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.shortcuts import redirect, resolve_url
 
 from authlib.integrations.django_client import OAuth
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from haico import auth, settings
 
@@ -21,7 +21,7 @@ oauth.register(
 def login_view(request: HttpRequest) -> HttpResponse:
     redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
                                    request.GET.get(REDIRECT_FIELD_NAME, ''))
-    if not is_safe_url(redirect_to, request.get_host()):
+    if not url_has_allowed_host_and_scheme(redirect_to, request.get_host()):
         redirect_to = resolve_url('/')
     redirect_uri = request.build_absolute_uri(reverse('auth'))
     redirect_uri += f'?{REDIRECT_FIELD_NAME}={redirect_to}'
@@ -36,7 +36,7 @@ def auth_view(request: HttpRequest) -> HttpResponse:
 
     redirect_to = request.POST.get(REDIRECT_FIELD_NAME,
                                    request.GET.get(REDIRECT_FIELD_NAME, ''))
-    if not is_safe_url(redirect_to, request.get_host()):
+    if not url_has_allowed_host_and_scheme(redirect_to, request.get_host()):
         redirect_to = resolve_url('/')
     return redirect(redirect_to)
 
