@@ -30,8 +30,38 @@ services:
     expose:
       - 8000
     restart: always
+    web:
+        build: nginx
+        image: haico-nginx
+        volumes:
+            - static:/srv/haico/static/
+            - infoscreen-content:/srv/haico/infoscreen-content/
+            - infoscreen-static:/srv/haico/infoscreen-static/
+            - nginx:/etc/nginx/
+        ports:
+            - 80:80
+            - 443:443
+        restart: always
+    haico:
+        build:
+            context: .
+            args:
+                SECRET_KEY: "$SECRET_KEY"
+        image: haico
+        environment:
+        env_file:
+            - .env
+        volumes:
+            - static:/srv/haico/static/
+            - infoscreen-content:/srv/haico/infoscreen-content/
+            - infoscreen-static:/srv/haico/infoscreen-static/
+            - databases:/srv/haico
+        expose:
+            - 8000
+        restart: always
 volumes:
-  static:
-  infoscreen-content:
-  databases:
-  nginx:
+    static:
+    infoscreen-content:
+    infoscreen-static:
+    databases:
+    nginx:
