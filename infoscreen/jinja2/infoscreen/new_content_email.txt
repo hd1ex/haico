@@ -1,2 +1,13 @@
 User {{ user }} for group {{ group }} has uploaded new content: {{ content.file_url }}
 Click here to view the details: {{ content.get_detail_url() }}
+
+{% if content.event %}
+This content was uploaded as part of an event ending on {{ content.valid_until }}.
+{% elif content.valid_until %}
+This content was uploaded with validity ending on {{ content.valid_until }}.
+{% endif %}
+
+This content got automatically deployed to following screens:
+{% for screen in content.screens.all() %}
+-{{ screen.name }}
+{% endfor %}

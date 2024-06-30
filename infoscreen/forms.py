@@ -17,7 +17,8 @@ from haico.util import send_email_to_staff
 
 from . import util
 from .models import Infoscreen, InfoscreenContent
-from .util import verify_infoscreen_file
+from .scheduling import schedule_content
+from .util import verify_infoscreen_file, get_video_duration
 
 
 class DateInput(forms.DateInput):
@@ -44,6 +45,10 @@ class NewInfoscreenContentForm(forms.Form):
     valid_until = forms.DateField(widget=DateInput,
                                   required=False,
                                   label=gettext_lazy('Valid until'))
+    event = forms.BooleanField(widget=forms.CheckboxInput,
+                               required=False,
+                               initial=False,
+                               label=gettext_lazy('Event'))
     screens = forms.ModelMultipleChoiceField(
         Infoscreen.objects,
         initial=Infoscreen.objects.all,
@@ -56,7 +61,10 @@ class NewInfoscreenContentForm(forms.Form):
     def fill_choices(self, user: User):
         groups = [('', gettext_lazy('Choose a group'))] \
                  + [(g.id, str(g)) for g in user.groups.all()]
-        screens = [(g.id, str(g)) for g in Infoscreen.objects.all()]
+        if(user.is_staff):
+            screens = [(g.id, str(g)) for g in Infoscreen.objects.all()]
+        else:
+            screens = [(g.id, str(g)) for g in Infoscreen.objects.all().filter(admin_upload_only=False)]
         self.fields['group'].choices = groups
         self.fields['screens'].choices = screens
 
@@ -65,6 +73,8 @@ class NewInfoscreenContentForm(forms.Form):
         This method does file validation.
         """
         self.file_extension = verify_infoscreen_file(self.cleaned_data['file'])
+        self.video_duration = get_video_duration(
+            self.cleaned_data['file']) or 0
 
     def form_valid(self, request: HttpRequest) -> HttpResponse:
         """
@@ -78,6 +88,8 @@ class NewInfoscreenContentForm(forms.Form):
         screens = self.cleaned_data['screens']
         extension = self.file_extension
         user = request.user
+        video_duration = self.video_duration
+        event = self.cleaned_data['event']
 
         url = util.save_infoscreen_file(self.files['file'], title,
                                         str(group), extension)
@@ -88,10 +100,16 @@ class NewInfoscreenContentForm(forms.Form):
                                     valid_from=valid_from,
                                     valid_until=valid_until,
                                     submitter=user,
-                                    submission_time=datetime.now())
+                                    submission_time=datetime.now(),
+                                    video_duration=video_duration,
+                                    event=event
+                                    )
         content.save()
         content.screens.set(screens)
         content.save()
+
+        # call content scheduler
+        schedule_content()
 
         messages.add_message(
             request, messages.SUCCESS,

@@ -37,7 +37,7 @@ DEBUG = True
 # Configure this
 HOST_DOMAIN = '127.0.0.1'
 BASE_URL = f'http://{HOST_DOMAIN}:8000'
-ALLOWED_HOSTS = [HOST_DOMAIN]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'django_tables2',
+    'django_crontab',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -250,3 +251,10 @@ OAUTH_GROUP_CLAIM = 'groups'
 OAUTH_EMAIL_CLAIM = 'email'
 OPENID_CONF_URL = 'https://sso.example.com/.well-known/openid-configuration'
 OAUTH_CLIENT_SCOPES = 'openid username groups email'
+STATIC_INFOSCREEN_ROOT_DIR = "infoscreen-static"
+STATIC_PAGE_GENERATOR_SCRIPT = ""
+MAX_VIDEO_DURATION = 45
+
+CRONJOBS = [
+    ('0 2 * * *', 'infoscren.scheduling.schedule_content')
+]

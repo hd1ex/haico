@@ -58,6 +58,14 @@
             {% endblocktrans %}
         </p>
         <hr>
+        {{ form.event|as_crispy_field }}
+        <p class="form-text">
+            {% blocktrans trimmed %}
+                Next, you have to select whether the content is for a specific
+                event. Events are displayed more often the closer they get to the
+                end of their validity period.
+            {% endblocktrans %}
+        </p>
         <div class="form-group row">
             <div class="col">
                 {{ form.valid_from|as_crispy_field }}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load django_bootstrap_breadcrumbs %}
+{% load django_tables2 %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    {% breadcrumb 'Infoscreen' 'infoscreen_index' %}
+    {% breadcrumb 'Schedule' 'infoscreen_schedule' %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+     <h1>
+        {% blocktrans trimmed %}
+            View Schedules for Infoscreens
+        {% endblocktrans %}
+    </h1>
+    {% for table in tables %}
+        <h3>Infoscreen: {{ table.title }}</h3>
+        {% render_table table.data %}
+    {% endfor %}
+{% endblock %}

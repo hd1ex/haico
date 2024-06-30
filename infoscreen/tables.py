@@ -25,3 +25,19 @@ class ContentTable(tables.Table):
         fields = ('title', 'group', 'screens', 'submission_time', 'file_url')
         attrs = {'class': 'table table-striped'}
         order_by = '-submission_time'
+
+
+class ScheduleTable(tables.Table):
+    display_time = tables.Column()
+    group = tables.Column()
+    event = tables.Column()
+    ratio = tables.Column()
+    number_slots = tables.Column()
+    due_date = tables.DateColumn()
+    source = tables.Column()
+
+    class Meta:
+        fields = (
+        'display_time', 'number_slots', 'group', 'event', 'ratio', 'source',
+        'due_date',)
+        attrs = {'class': 'table table-striped'}

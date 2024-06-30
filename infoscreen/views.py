@@ -12,7 +12,8 @@ from django_tables2.export import TableExport
 
 from .forms import NewInfoscreenContentForm
 from .models import InfoscreenContent
-from .tables import ContentTable
+from .scheduling import schedule_content, Schedule
+from .tables import ContentTable, ScheduleTable
 
 
 def is_mobile(request: HttpRequest) -> bool:
@@ -39,6 +40,23 @@ def index_view(request: HttpRequest) -> HttpResponse:
 
     context = {'table': table, 'show_all': show_all}
     return render(request, 'infoscreen/index_table_view.html', context)
+
+
+def schedule_view(request: HttpRequest) -> HttpResponse:
+    schedules = schedule_content()
+    tables = []
+    for schedule in schedules:
+        table = ScheduleTable(schedule.slides)
+        RequestConfig(request).configure(table)
+        tables.append({'title': schedule.infoscreen.name, 'data': table})
+
+    # export_format = request.GET.get('_export', None)
+    # if TableExport.is_valid_format(export_format):
+    #     exporter = TableExport(export_format, table)
+    #     return exporter.response("table.{}".format(export_format))
+    context = {'tables': tables}
+
+    return render(request, 'infoscreen/schedule_view.html', context)
 
 
 @csrf_protect
