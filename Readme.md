@@ -23,6 +23,11 @@ to provide some kind of connection between these information sources.
 - A list view for current/all infoscreen content with json export functionality
 - German translation
 - OpenID/OAuth2 authentication
+- Creating infoscreens where only admins can upload content
+- Setting default display time for infoscreen content for each screen
+- fair scheduling of using defualt display time and videolength differentiating between regular content and event advertisement
+- Automatically generating config files for [static-infoscreen](https://github.com/hd1ex/static-infoscreen) for each infoscreen via cron or triggered by upload
+- to start cron job execute `python manage.py crontab add` and to stop `python manage.py crontab remove`
 
 ### Planned
 
