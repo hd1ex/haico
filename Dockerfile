@@ -39,6 +39,7 @@ COPY auth_group_mappings auth_group_mappings
 RUN python manage.py migrate
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compilemessages
+RUN python manage.py crontab add
 
 RUN chown -R "$SERVER_USER:$SERVER_USER" "$APP_PATH"
 
