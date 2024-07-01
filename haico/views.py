@@ -30,7 +30,7 @@ def login_view(request: HttpRequest) -> HttpResponse:
 
 def auth_view(request: HttpRequest) -> HttpResponse:
     token = oauth.org.authorize_access_token(request)
-    user = oauth.org.parse_id_token(request, token)
+    user = oauth.org.parse_id_token(token, token['userinfo']['nonce'])
     user = auth.update_user(user)
     login(request, user)
 
