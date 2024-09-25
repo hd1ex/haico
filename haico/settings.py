@@ -38,6 +38,7 @@ DEBUG = True
 HOST_DOMAIN = '127.0.0.1'
 BASE_URL = f'http://{HOST_DOMAIN}:8000'
 ALLOWED_HOSTS = [HOST_DOMAIN]
+CSRF_TRUSTED_ORIGINS = [BASE_URL]
 
 # Application definition
 
