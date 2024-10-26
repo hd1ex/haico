@@ -1,12 +1,10 @@
 import random
-import subprocess
 from dataclasses import dataclass
 from datetime import date
 
 from haico import settings
 from .models import Infoscreen, InfoscreenContent
-from .util import repeat_array_to_slots, \
-    merge_slides_arrays, generate_infoscreen_config
+from .util import save_infoscreen_config
 
 
 @dataclass
@@ -18,17 +16,30 @@ class Slide:
     due_date: date = None
     ratio: int = 1
 
+    def to_dict(self):
+        return {
+            'display_time': self.display_time,
+            'source': self.source,
+            'group': self.group,
+            'event': self.event,
+            'due_date': self.due_date.isoformat() if self.due_date else None,
+            'ratio': self.ratio
+        }
 
-@dataclass
-class Group:
-    group_name: str
-    slides: list
-    slots: int
+    def from_dict(self):
+        return Slide(
+            display_time=self['display_time'],
+            source=self['source'],
+            group=self['group'],
+            event=self['event'],
+            due_date=date.fromisoformat(self['due_date']) if self[
+                'due_date'] else None,
+            ratio= self['ratio'] if self['ratio'] else 1
+        )
 
 
 
-
-def schedule_content() -> list[Slide]:
+def schedule_content():
     infoscreens = Infoscreen.objects.all()
 
     for infoscreen in infoscreens:
@@ -74,16 +85,12 @@ def schedule_content() -> list[Slide]:
         random.shuffle(slides)
 
         # generate configs for static page generator
-        config_file_path = save_infoscreen_config(infoscreen, slides)
-        print(f'Generated config file: {config_file_path}')
-        infoscreen.config_url = f'{settings.BASE_URL}/{config_file_path}'
-        infoscreen.config_file = config_file_path
+        schedule_file_path = save_infoscreen_config(infoscreen, slides)
+        print(f'Generated config file: {schedule_file_path}')
+        infoscreen.schedule_url = f'{settings.BASE_URL}/{schedule_file_path}'
+        infoscreen.schedule_file = schedule_file_path
         infoscreen.save()
 
         # call static page generator
         # subprocess.call([settings.STATIC_PAGE_GENERATOR_SCRIPT,
         # relative_config_path])
-
-        schedules.append(Schedule(infoscreen, slides))
-
-    return schedules

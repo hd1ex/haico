@@ -26,9 +26,24 @@ class Infoscreen(models.Model):
     overwritten_by = models.ForeignKey('self', on_delete=models.RESTRICT, null=True, blank=True,
                                                     help_text="(OPTIONAL) An infoscreen which content overwrites this one's.")
     admin_upload_only = models.BooleanField(default=False, null=False,
-                                            help_text='Whether only admins can upload content to this screen.')
+                                            help_text='Whether only admins '
+                                                      'can upload content to '
+                                                      'this screen.')
+    schedule_url = models.URLField(null=True, blank=True,verbose_name=_('schedule file url'),
+                                 help_text=_(
+                                     'An url to the config hosted file.'))
+    schedule_file = models.TextField(null=True, blank=True, editable=False,
+        verbose_name=_('schedule file path'),
+        help_text=_('The path to the config file.'))
+
+    readonly_fields = ['schedule_file']
+
     def __str__(self) -> str:
         return self.name
+
+    @staticmethod
+    def query_all():
+        return Infoscreen.objects.all()
 
 
 class InfoscreenContent(models.Model):

@@ -1,5 +1,6 @@
 import datetime
 import io
+import json
 import os
 from io import IOBase
 from pathlib import Path
@@ -153,18 +154,13 @@ def merge_slides_arrays(regular, events):
 
     return result
 
-def generate_infoscreen_config(infoscreen, slides) -> str:
-    config_text = render_to_string('infoscreen/infoscreen.conf',
-                                   context={
-                                       'infoscreen': infoscreen,
-                                       'slides': slides,
-                                   })
-
-    file_path = os.path.join(settings.STATIC_INFOSCREEN_ROOT_DIR,
-                             infoscreen.name, 'infoscreen.conf')
+def save_infoscreen_config(infoscreen, slides) -> str:
+    schedule_text = json.dumps([slide.to_dict() for slide in slides], indent=4)
+    file_path = os.path.join(settings.STATIC_INFOSCREEN_ROOT,
+                             infoscreen.name, 'schedule.json')
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     with open(file_path, 'w') as file:
-        file.write(config_text)
+        file.write(schedule_text)
     return file_path
