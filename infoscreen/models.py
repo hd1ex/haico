@@ -8,6 +8,11 @@ from django.utils.translation import pgettext_lazy, gettext_lazy as _
 from haico import settings
 
 
+class MediaType(models.TextChoices):
+    IMAGE = "Image"
+    VIDEO = "Video"
+    HTML = "Website"  # (...)
+
 class Infoscreen(models.Model):
     class Meta:
         ordering = ('name',)
@@ -58,6 +63,10 @@ class InfoscreenContent(models.Model):
 
     file_url = models.URLField(verbose_name=_('file url'),
                                help_text=_('An url to the hosted file.'))
+    media_type = models.TextField(verbose_name=_('file type'),
+                                help_text=_('File type of the content.'),
+                                choices=MediaType.choices,
+                                default=MediaType.HTML)
     title = models.TextField(help_text=_('A title for the content.'),
                              verbose_name=_('title'))
     group = models.ForeignKey(Group,

@@ -16,7 +16,7 @@ from haico import settings
 from haico.util import send_email_to_staff
 
 from . import util
-from .models import Infoscreen, InfoscreenContent
+from .models import Infoscreen, InfoscreenContent, MediaType
 from .scheduling import schedule_content
 from .util import verify_infoscreen_file, get_video_duration
 
@@ -72,9 +72,27 @@ class NewInfoscreenContentForm(forms.Form):
         """
         This method does file validation.
         """
-        self.file_extension = verify_infoscreen_file(self.cleaned_data['file'])
+        file = self.cleaned_data['file']
+        verify_infoscreen_file(file)
         self.video_duration = get_video_duration(
             self.cleaned_data['file']) or 0
+
+
+        try:
+            if file:
+                file_type = file.content_type.split('/')[0]
+                self.file_extension = f'.{file.content_type.split("/")[1]}'
+                if(file_type == 'image'):
+                    self.media_type = MediaType.IMAGE
+                elif(file_type == 'video'):
+                    self.media_type = MediaType.VIDEO
+                else:
+                    raise forms.ValidationError(
+                        gettext('Unsupported file type.'))
+
+
+        except:
+            pass
 
     def form_valid(self, request: HttpRequest) -> HttpResponse:
         """
@@ -82,6 +100,7 @@ class NewInfoscreenContentForm(forms.Form):
         """
 
         title = self.cleaned_data['title']
+        media_type = self.media_type
         group = self.cleaned_data['group']
         valid_from = self.cleaned_data['valid_from']
         valid_until = self.cleaned_data['valid_until']
@@ -95,6 +114,7 @@ class NewInfoscreenContentForm(forms.Form):
                                         str(group), extension)
 
         content = InfoscreenContent(file_url=url,
+                                    media_type=media_type,
                                     title=title,
                                     group=group,
                                     valid_from=valid_from,
