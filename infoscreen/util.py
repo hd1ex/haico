@@ -100,60 +100,6 @@ def save_infoscreen_file(file, title: str, group: str, extension: str) -> str:
     return f'{settings.BASE_URL}/{filename}'
 
 
-def repeat_array_to_slots(slides, target_slots):
-    # Calculate the total number of slots in the original array
-    total_slots = sum(slide.number_slots for slide in slides)
-
-    if total_slots == 0:
-        raise ValueError(
-            "The total number of slots in the input array must be greater than zero.")
-
-    if total_slots >= target_slots:
-        raise ValueError(
-            "The target number of slots must be greater than the current total number of slots.")
-
-    repeated_slides = []
-    current_total_slots = 0
-    index = 0
-    num_slides = len(slides)
-
-    # Repeat the array until we reach the target number of slots
-    while current_total_slots < target_slots:
-        slide = slides[index % num_slides]
-        if current_total_slots + slide.number_slots <= target_slots:
-            repeated_slides.append(slide)
-            current_total_slots += slide.number_slots
-        else:
-            break
-        index += 1
-
-    return repeated_slides
-
-
-def merge_slides_arrays(regular, events):
-    result = []
-    regular_len = len(regular)
-    event_index = 0
-    regular_index = 0
-    event_block = 0
-
-    while regular_index < regular_len:
-        # Add the regular slide with slots treated as 1
-        result.append(regular[regular_index])
-        regular_index += 1
-
-        if event_block == 0:
-            # Check if we can add an event slide
-            if event_index < len(events):
-                event_slide = events[event_index]
-                result.append(event_slide)
-                event_index += 1
-                event_block = event_slide.number_slots - 1
-        else:
-            event_block -= 1
-
-    return result
-
 def save_infoscreen_config(infoscreen, slides) -> str:
     schedule_text = json.dumps([slide.to_dict() for slide in slides], indent=4)
     file_path = os.path.join(settings.STATIC_INFOSCREEN_ROOT,
