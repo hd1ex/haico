@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-30 13:44+0200\n"
+"POT-Creation-Date: 2024-10-26 18:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,41 +74,63 @@ msgstr ""
 "Mail an %(rec)s und erwähne deine Inhalts-Id (%(id)s). Enschuldigung für die "
 "Unanehmlichkeiten!"
 
+#: infoscreen/models.py:35
+#, fuzzy
+#| msgid "file url"
+msgid "schedule file url"
+msgstr "Datei-URL"
+
 #: infoscreen/models.py:37
+#, fuzzy
+#| msgid "An url to the hosted file."
+msgid "An url to the config hosted file."
+msgstr "Eine URL zur abgelegten Datei."
+
+#: infoscreen/models.py:39
+msgid "schedule file path"
+msgstr ""
+
+#: infoscreen/models.py:40
+#, fuzzy
+#| msgid "An url to the hosted file."
+msgid "The path to the schedule file."
+msgstr "Eine URL zur abgelegten Datei."
+
+#: infoscreen/models.py:55
 msgctxt "infoscreen content singular"
 msgid "infoscreen content"
 msgstr "Infoscreen-Inhalt"
 
-#: infoscreen/models.py:39
+#: infoscreen/models.py:57
 msgctxt "infoscreen content plural"
 msgid "infoscreen content"
 msgstr "Infoscreen-Inhalte"
 
-#: infoscreen/models.py:41
+#: infoscreen/models.py:59
 msgid "file url"
 msgstr "Datei-URL"
 
-#: infoscreen/models.py:42
+#: infoscreen/models.py:60
 msgid "An url to the hosted file."
 msgstr "Eine URL zur abgelegten Datei."
 
-#: infoscreen/models.py:43
+#: infoscreen/models.py:61
 msgid "A title for the content."
 msgstr "Ein Titel für den Inhalt."
 
-#: infoscreen/models.py:44
+#: infoscreen/models.py:62
 msgid "title"
 msgstr "Dateititel"
 
-#: infoscreen/models.py:47
+#: infoscreen/models.py:65
 msgid "group"
 msgstr "Gruppe"
 
-#: infoscreen/models.py:49
+#: infoscreen/models.py:67
 msgid "The name of the associated group."
 msgstr "Der Name der verbundenen Gruppe."
 
-#: infoscreen/models.py:52
+#: infoscreen/models.py:70
 msgid ""
 "The date when this content should start to be shown. Empty means that it "
 "should be shown from now on."
@@ -116,57 +138,57 @@ msgstr ""
 "Das Datum ab wann dieser Inhalt angezeigt werden soll. Leer bedeutet, dass "
 "dieser ab sofort angezeigt werden soll."
 
-#: infoscreen/models.py:55
+#: infoscreen/models.py:73
 msgid "valid from"
 msgstr "Gültig ab"
 
-#: infoscreen/models.py:58
+#: infoscreen/models.py:76
 msgid "The date when this content expires. Empty means it does not expire."
 msgstr ""
 "Das Datum wann dieser Inhalt ausläuft. Leer bedeutet, dass dieser nicht "
 "ausläuft."
 
-#: infoscreen/models.py:60
+#: infoscreen/models.py:78
 msgid "valid until"
 msgstr "Gültig bis"
 
-#: infoscreen/models.py:63
+#: infoscreen/models.py:81
 msgid "Whether this content is an event."
 msgstr "Gibt an, ob dieser Inhalt für eine Veranstaltung ist."
 
-#: infoscreen/models.py:64
+#: infoscreen/models.py:82
 msgid "event"
 msgstr "Veranstaltung"
 
-#: infoscreen/models.py:67
+#: infoscreen/models.py:85
 msgid "The screens this content should be displayed on."
 msgstr "Die Bildschirme, an denen der Inhalt angezeigt werden soll."
 
-#: infoscreen/models.py:69
+#: infoscreen/models.py:87
 msgid "screens"
 msgstr "Bildschirme"
 
-#: infoscreen/models.py:73
+#: infoscreen/models.py:91
 msgid "The submitter of the content."
 msgstr "Der/Die Einreichende des Inhalts."
 
-#: infoscreen/models.py:74
+#: infoscreen/models.py:92
 msgid "submitter"
 msgstr "Einreichende"
 
-#: infoscreen/models.py:76
+#: infoscreen/models.py:94
 msgid "The time of submission."
 msgstr "Der Einreichungszeitpunkt."
 
-#: infoscreen/models.py:77
+#: infoscreen/models.py:95
 msgid "submission time"
 msgstr "Einreichungszeitpunkt"
 
-#: infoscreen/models.py:79
+#: infoscreen/models.py:97
 msgid "The duration of the video in seconds."
 msgstr "Länge des Videos in Sekunden."
 
-#: infoscreen/models.py:80
+#: infoscreen/models.py:98
 msgid "video duration"
 msgstr "Videolänge"
 
@@ -281,7 +303,7 @@ msgstr "Inhalt einreichen"
 msgid "View Schedules for Infoscreens"
 msgstr ""
 
-#: infoscreen/util.py:29
+#: infoscreen/util.py:30
 #, python-format
 msgid ""
 "Your media file has the dimensions %(width)sx%(height)s. They need to be "
@@ -290,18 +312,24 @@ msgstr ""
 "Deine Multimedia-Datei hat die Dimensionen %(width)sx%(height)s. Diese "
 "müssen aber %(target_width)sx%(target_height)s sein."
 
-#: infoscreen/util.py:42 infoscreen/util.py:60
+#: infoscreen/util.py:43 infoscreen/util.py:61
 msgid "Unable to parse file. Is this a multimedia file?"
 msgstr ""
 "Die Datei kann nicht verarbeitet werden. Ist dies eine Multimedia-Datei?"
 
-#: infoscreen/util.py:52
+#: infoscreen/util.py:53
 msgid "Unsupported file type."
 msgstr "Nicht-unterstützter Dateityp."
 
-#: infoscreen/util.py:76
+#: infoscreen/util.py:75
 msgid "Video duration exceeds the maximum allowed duration."
 msgstr "Die Videolänge überschreitet die maximale erlaubte Länge."
+
+#: infoscreen/views.py:74
+#, fuzzy
+#| msgid "File \"%(title)s\" uploaded successfully."
+msgid "Schedules generated successfully."
+msgstr "Datei \"%(title)s\" erfolgreich hochgeladen."
 
 #: templates/base.html:52
 msgid ""
