@@ -34,9 +34,10 @@ class ScheduleTable(tables.Table):
     ratio = tables.Column()
     due_date = tables.DateColumn()
     source = tables.Column()
+    media_type = tables.Column()
 
     class Meta:
         fields = (
         'display_time', 'group', 'event', 'ratio', 'source',
-        'due_date',)
+        'due_date', 'media_type')
         attrs = {'class': 'table table-striped'}
