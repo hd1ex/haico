@@ -14,17 +14,20 @@ class Infoscreen(models.Model):
 
     name = models.TextField(help_text='The name of the infoscreen.')
     default_display_time = models.IntegerField(
-        help_text='The default display time in seconds.', default=15)
-    ratio_4_max_days = models.IntegerField(
-        help_text='The maximum number of days until the due date an event slide to be assigned a ratio of 4.', default=5)
+        help_text='The default display time in seconds.', default=10)
     ratio_3_max_days = models.IntegerField(
-        help_text='The maximum number of days until the due date an event slide to be assigned a ratio of 3.',
-        default=8)
+        help_text='The maximum number of days until the due date an event '
+                  'slide to be assigned a ratio of 3.',
+        default=3)
     ratio_2_max_days = models.IntegerField(
-        help_text='The maximum number of days until the due date an event slide to be assigned a ratio of 2.',
-        default=12)
-    overwritten_by = models.ForeignKey('self', on_delete=models.RESTRICT, null=True, blank=True,
-                                                    help_text="(OPTIONAL) An infoscreen which content overwrites this one's.")
+        help_text='The maximum number of days until the due date an event '
+                  'slide to be assigned a ratio of 2.',
+        default=7)
+    overwritten_by = models.ForeignKey('self', on_delete=models.RESTRICT,
+                                       null=True, blank=True,
+                                       help_text="(OPTIONAL) An infoscreen "
+                                                 "which content overwrites "
+                                                 "this one's.")
     admin_upload_only = models.BooleanField(default=False, null=False,
                                             help_text='Whether only admins '
                                                       'can upload content to '
@@ -74,9 +77,9 @@ class InfoscreenContent(models.Model):
                                        'Empty means it does not expire.'),
                                    verbose_name=_('valid until'))
     event = models.BooleanField(default=False, null=False,
-                                    help_text=_(
-                                        'Whether this content is an event.'),
-                                    verbose_name=_('event'))
+                                help_text=_(
+                                    'Whether this content is an event.'),
+                                verbose_name=_('event'))
     screens = models.ManyToManyField(Infoscreen,
                                      help_text=_(
                                          'The screens this content '
@@ -92,7 +95,7 @@ class InfoscreenContent(models.Model):
         verbose_name=_('submission time'))
     video_duration = models.IntegerField(
         help_text=_('The duration of the video in seconds.'),
-        verbose_name=_('video duration'), default=15)
+        verbose_name=_('video duration'), default=10)
 
     def __str__(self) -> str:
         return self.title
