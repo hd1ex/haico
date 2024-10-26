@@ -1,5 +1,4 @@
 import datetime
-import io
 import json
 import os
 from io import IOBase
@@ -16,6 +15,7 @@ from hachoir.metadata import extractMetadata
 
 from haico import settings
 from haico.settings import MAX_VIDEO_DURATION
+from infoscreen.models import MediaType
 
 
 def verify_multimedia(metadata: dict):
@@ -110,3 +110,37 @@ def save_infoscreen_config(infoscreen, slides) -> str:
     with open(file_path, 'w') as file:
         file.write(schedule_text)
     return file_path
+
+def generate_static_htmls(infoscreen, slides):
+    #delete all html files in the infoscreen folder
+    dir_path = os.path.join(settings.STATIC_INFOSCREEN_ROOT,
+                                 infoscreen.name)
+    dir_list = os.listdir(dir_path)
+
+    for item in dir_list:
+        if item.endswith(".html"):
+            os.remove(os.path.join(dir_path, item))
+
+    # generate html files for each slide
+    for index, slide in enumerate(slides):
+
+        file_path = os.path.join(settings.STATIC_INFOSCREEN_ROOT,
+                                 infoscreen.name, f'{index}.html')
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        current_content = slide.source
+        display_time = slide.display_time*1000
+        next_url = f'{settings.BASE_URL}/{settings.STATIC_INFOSCREEN_FILES_FOLDER}/{infoscreen.name}/{(index + 1) % len(slides)}.html'
+        next_content = slides[(index + 1) % len(slides)].source
+
+        context = {'current_content': current_content, 'display_time': display_time, 'next_url': next_url, 'next_file': next_content }
+
+        #choose template depending on media type and write to file
+        with open(file_path, 'w') as file:
+            if slide.media_type == MediaType.HTML:
+                file.write(render_to_string('infoscreen-static/website.html', context))
+            elif slide.media_type == MediaType.IMAGE:
+                file.write(render_to_string('infoscreen-static/image.html', context))
+            elif slide.media_type == MediaType.VIDEO:
+                file.write(render_to_string('infoscreen-static/video.html', context))
+

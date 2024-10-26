@@ -3,18 +3,20 @@ from dataclasses import dataclass
 from datetime import date
 
 from haico import settings
-from .models import Infoscreen, InfoscreenContent
-from .util import save_infoscreen_config
+from .models import Infoscreen, InfoscreenContent, MediaType
+from .util import save_infoscreen_config, generate_static_htmls
 
 
 @dataclass
 class Slide:
     display_time: int
     source: str
+    media_type: MediaType
     group: str
     event: bool
     due_date: date = None
     ratio: int = 1
+
 
     def to_dict(self):
         return {
@@ -23,10 +25,11 @@ class Slide:
             'group': self.group,
             'event': self.event,
             'due_date': self.due_date.isoformat() if self.due_date else None,
-            'ratio': self.ratio
+            'ratio': self.ratio,
+            'media_type': MediaType(self.media_type)
         }
 
-    def from_dict(self):
+    def from_dict(self=None):
         return Slide(
             display_time=self['display_time'],
             source=self['source'],
@@ -34,7 +37,8 @@ class Slide:
             event=self['event'],
             due_date=date.fromisoformat(self['due_date']) if self[
                 'due_date'] else None,
-            ratio= self['ratio'] if self['ratio'] else 1
+            ratio= self['ratio'] if self['ratio'] else 1,
+            media_type= MediaType(self['media_type']) if self['media_type'] else MediaType.HTML
         )
 
 
@@ -53,7 +57,9 @@ def schedule_content():
         slides = []
         for content_piece in content:
             display_time = content_piece.video_duration or infoscreen.default_display_time
-            slides.append(Slide(display_time, content_piece.file_url,
+            slides.append(Slide(display_time,
+                                content_piece.file_url,
+                                content_piece.media_type,
                                 content_piece.group.name,
                                 content_piece.event,
                                 content_piece.valid_until))
@@ -90,6 +96,8 @@ def schedule_content():
         infoscreen.schedule_url = f'{settings.BASE_URL}/{schedule_file_path}'
         infoscreen.schedule_file = schedule_file_path
         infoscreen.save()
+
+        generate_static_htmls(infoscreen, slides)
 
         # call static page generator
         # subprocess.call([settings.STATIC_PAGE_GENERATOR_SCRIPT,
