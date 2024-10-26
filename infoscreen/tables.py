@@ -32,12 +32,11 @@ class ScheduleTable(tables.Table):
     group = tables.Column()
     event = tables.Column()
     ratio = tables.Column()
-    number_slots = tables.Column()
     due_date = tables.DateColumn()
     source = tables.Column()
 
     class Meta:
         fields = (
-        'display_time', 'number_slots', 'group', 'event', 'ratio', 'source',
+        'display_time', 'group', 'event', 'ratio', 'source',
         'due_date',)
         attrs = {'class': 'table table-striped'}

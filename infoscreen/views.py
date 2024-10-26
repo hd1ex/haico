@@ -1,8 +1,9 @@
+import json
 import re
-from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.contrib import messages
+from django.utils.translation import gettext
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
@@ -11,8 +12,8 @@ from django_tables2 import RequestConfig
 from django_tables2.export import TableExport
 
 from .forms import NewInfoscreenContentForm
-from .models import InfoscreenContent
-from .scheduling import schedule_content, Schedule
+from .models import InfoscreenContent, Infoscreen
+from .scheduling import schedule_content, Slide
 from .tables import ContentTable, ScheduleTable
 
 
@@ -43,12 +44,17 @@ def index_view(request: HttpRequest) -> HttpResponse:
 
 
 def schedule_view(request: HttpRequest) -> HttpResponse:
-    schedules = schedule_content()
+
+    infoscreens = Infoscreen.query_all()
     tables = []
-    for schedule in schedules:
-        table = ScheduleTable(schedule.slides)
+
+    for infoscreen in infoscreens:
+        f = open(infoscreen.schedule_file)
+        slides_data = json.load(f)
+        schedule = [Slide.from_dict(slide_data) for slide_data in slides_data]
+        table = ScheduleTable(schedule)
         RequestConfig(request).configure(table)
-        tables.append({'title': schedule.infoscreen.name, 'data': table})
+        tables.append({'title': infoscreen.name, 'data': table})
 
     # export_format = request.GET.get('_export', None)
     # if TableExport.is_valid_format(export_format):
@@ -58,6 +64,17 @@ def schedule_view(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'infoscreen/schedule_view.html', context)
 
+@csrf_protect
+@login_required
+def schedule_generate(request: HttpRequest) -> HttpResponse:
+    schedule_content()
+    messages.add_message(
+        request, messages.SUCCESS,
+        gettext(
+            'Schedules generated successfully.'
+        ),
+        'alert alert-success')
+    return schedule_view(request)
 
 @csrf_protect
 @login_required
