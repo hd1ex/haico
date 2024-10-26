@@ -37,7 +37,7 @@ class Infoscreen(models.Model):
                                      'An url to the config hosted file.'))
     schedule_file = models.TextField(null=True, blank=True, editable=False,
         verbose_name=_('schedule file path'),
-        help_text=_('The path to the config file.'))
+        help_text=_('The path to the schedule file.'))
 
     readonly_fields = ['schedule_file']
 
