@@ -37,12 +37,14 @@ class Infoscreen(models.Model):
                                             help_text='Whether only admins '
                                                       'can upload content to '
                                                       'this screen.')
-    schedule_url = models.URLField(null=True, blank=True,verbose_name=_('schedule file url'),
-                                 help_text=_(
-                                     'An url to the config hosted file.'))
+    schedule_url = models.URLField(null=True, blank=True,
+                                   verbose_name=_('schedule file url'),
+                                   help_text=_(
+                                       'An url to the config hosted file.'))
     schedule_file = models.TextField(null=True, blank=True, editable=False,
-        verbose_name=_('schedule file path'),
-        help_text=_('The path to the schedule file.'))
+                                     verbose_name=_('schedule file path'),
+                                     help_text=_(
+                                         'The path to the schedule file.'))
 
     readonly_fields = ['schedule_file']
 
