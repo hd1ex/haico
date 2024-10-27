@@ -131,9 +131,19 @@ def generate_static_htmls(infoscreen, slides):
         current_content = slide.source
         display_time = slide.display_time*1000
         next_url = f'{settings.BASE_URL}/{settings.STATIC_INFOSCREEN_FILES_FOLDER}/{infoscreen.name}/{(index + 1) % len(slides)}.html'
-        next_content = slides[(index + 1) % len(slides)].source
+        next_file = slides[(index + 1) % len(slides)].source
+        next_file_media_type = slides[(index + 1) % len(slides)].media_type
 
-        context = {'current_content': current_content, 'display_time': display_time, 'next_url': next_url, 'next_file': next_content }
+        if(next_file_media_type == MediaType.VIDEO):
+            next_file_media_type = "video"
+        elif (next_file_media_type == MediaType.IMAGE):
+            next_file_media_type = "image"
+        elif (next_file_media_type == MediaType.HTML):
+            next_file_media_type = "document"
+
+
+
+        context = {'current_content': current_content, 'display_time': display_time, 'next_url': next_url, 'next_file': next_file, 'next_file_media_type': next_file_media_type}
 
         #choose template depending on media type and write to file
         with open(file_path, 'w') as file:
