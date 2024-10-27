@@ -68,6 +68,14 @@
         {% block content %}
         {% endblock content %}
     </div>
+<script type="text/javascript">
+    // Nightmode: Dim the screen between 21:00 and 06:00 to 30% brightness
+    let date = new Date();
+    if (date.getHours() > 21 || date.getHours() < 6) {
+        document.body.style = "filter: brightness(30%);";
+        console.log("Nightmode activated");
+    }
+</script>
 </body>
 
 </html>
