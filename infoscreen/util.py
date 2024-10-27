@@ -15,7 +15,6 @@ from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 
 from haico import settings
-from haico.settings import MAX_VIDEO_DURATION
 
 
 def verify_multimedia(metadata: dict):
@@ -71,7 +70,8 @@ def get_video_duration(file: IOBase) -> int:
 
         except Exception as err:
             duration = None
-        if duration is int and duration > MAX_VIDEO_DURATION:
+
+        if duration > settings.MAX_VIDEO_DURATION:
             raise ValidationError(gettext('Video duration exceeds the maximum allowed duration.'))
 
     return duration or None
