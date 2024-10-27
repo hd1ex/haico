@@ -14,7 +14,7 @@ RUN adduser -D -g "$SERVER_USER" "$SERVER_USER"
 # Install dependencies
 RUN set -e; \
     apk update; \
-    apk add gcc libc-dev linux-headers pcre-dev gettext libffi-dev cargo \
+    apk add gcc libc-dev linux-headers pcre-dev gettext libffi-dev \
         openssl-dev
 
 RUN python -m venv $VIRTUAL_ENV
