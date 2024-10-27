@@ -10,10 +10,12 @@
         }
 
         {% if display_time > 0 %}
-        setTimeout(() => {
-            nextSite();
-        }, {{ display_time }});
+            setTimeout(() => {
+                nextSite();
+            }, {{ display_time }});
         {% endif %}
+
+
     </script>
     <link rel="preload" href="{{ next_file }}">
     {% block header %}
@@ -60,15 +62,59 @@
             color: white;
             text-align: center;
         }
+
+        #extensionAlertWrapper {
+            display: none;
+        }
+
+        .clock {
+            position: absolute;
+            background: #000000aa;
+            top: 100%;
+            left: 0;
+            transform: translateX(10%) translateY(-130%);
+            padding: 10px;
+            color: #ffffff;
+            height: 40px;
+            line-height: 40px;
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 7px;
+        }
     </style>
 </head>
 
 <body>
-    <div>
-        {% block content %}
-        {% endblock content %}
-    </div>
+<div>
+    {% block content %}
+    {% endblock content %}
+</div>
+<div id="clock" class="clock" onload="showTime()"></div>
+
+
 <script type="text/javascript">
+    
+    //display clock
+    function showTime() {
+        let date = new Date();
+        let h = date.getHours(); // 0 - 23
+        let m = date.getMinutes(); // 0 - 59
+        let s = date.getSeconds(); // 0 - 59
+
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+        var time = h + ":" + m + ":" + s;
+
+        document.getElementById("clock").innerText = time;
+        document.getElementById("clock").textContent = time;
+
+        setTimeout(showTime, 1000);
+    }
+
+    showTime()
+
     // Nightmode: Dim the screen between 21:00 and 06:00 to 30% brightness
     let date = new Date();
     if (date.getHours() > 21 || date.getHours() < 6) {
